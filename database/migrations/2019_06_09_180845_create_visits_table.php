@@ -15,7 +15,18 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('link_id')->index();
+            $table->ipAddress('ip_address');
+            $table->string('country');
+            $table->string('refereer_url')->nullable();
             $table->timestamps();
+
+            /**
+             * Foreign Keys
+             */
+            $table->foreign('link_id')
+                ->references('id')->on('links')
+                ->onDelete('cascade');
         });
     }
 
