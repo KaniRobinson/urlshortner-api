@@ -4,7 +4,7 @@ namespace App\Http\Requests\Link;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateController extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateController extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class CreateController extends FormRequest
     public function rules()
     {
         return [
-            //
+            'url' => 'required|url|active_url',
         ];
     }
 }
