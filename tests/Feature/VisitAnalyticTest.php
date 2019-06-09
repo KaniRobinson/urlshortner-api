@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class VisitAnalyticTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * A basic feature test example.
      *
@@ -17,6 +18,6 @@ class VisitAnalyticTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(404);
     }
 }

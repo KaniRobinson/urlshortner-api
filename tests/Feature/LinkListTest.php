@@ -3,20 +3,26 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LinkListTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
-     * A basic feature test example.
+     * Test can list links
      *
      * @return void
      */
-    public function testExample()
+    public function test_can_list_links()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this
+            ->json('GET', '/api/links')
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data',
+                'links',
+                'meta',
+            ]);
     }
 }

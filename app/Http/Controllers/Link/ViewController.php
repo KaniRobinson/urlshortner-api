@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Link;
 
+use App\Models\Link;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LinkResource;
 
 class ViewController extends Controller
 {

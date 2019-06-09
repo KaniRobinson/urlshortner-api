@@ -23,6 +23,16 @@ class Link extends Model
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'token';
+    }
+
+    /**
      * Visit Has Many Relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

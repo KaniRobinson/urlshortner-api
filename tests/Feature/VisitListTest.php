@@ -3,20 +3,41 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Link;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class VisitListTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
-     * A basic feature test example.
+     * Test can list visits
      *
      * @return void
      */
-    public function testExample()
+    public function test_can_list_visits()
     {
-        $response = $this->get('/');
+        $link = factory(Link::class)->create();
 
-        $response->assertStatus(200);
+        $this
+            ->json('GET', '/api/visits/' . $link->token)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data',
+                'links',
+                'meta',
+            ]);
+    }
+
+    /**
+     * Test a bad link that doesn't exist
+     *
+     * @return void
+     */
+    public function test_404_visits()
+    {
+        $this
+            ->json('GET', '/api/visits/123123')
+            ->assertStatus(404);
     }
 }

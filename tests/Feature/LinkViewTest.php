@@ -3,20 +3,46 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Link;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LinkViewTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
-     * A basic feature test example.
+     * Test can view a link
      *
      * @return void
      */
-    public function testExample()
+    public function test_can_view_link()
     {
-        $response = $this->get('/');
+        $link = factory(Link::class)->create();
 
-        $response->assertStatus(200);
+        $this
+            ->json('GET', '/api/links/' . $link->token)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'token',
+                    'link',
+                    'url',
+                    'created_at',
+                    'updated_at',
+                ]
+            ]);
+    }
+
+    /**
+     * Test a bad link that doesn't exist
+     *
+     * @return void
+     */
+    public function test_404_link()
+    {
+        $this
+            ->json('GET', '/api/links/123123')
+            ->assertStatus(404);
     }
 }
