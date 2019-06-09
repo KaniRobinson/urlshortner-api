@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Link::class, function (Faker $faker) {
     return [
-        //
+        'token' => $faker->unique()->randomDigit,
+        'url' => $faker->url,
     ];
 });
