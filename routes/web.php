@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Link')->group(function() {
+    Route::get('/{link}', VisitController::class);
 });

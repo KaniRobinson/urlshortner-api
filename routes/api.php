@@ -11,3 +11,13 @@
 |
 */
 
+Route::namespace('Link')->prefix('links')->group(function() {
+    Route::post('/', CreateController::class);
+    Route::get('/', ListController::class);
+    Route::get('/{link}', ViewController::class);
+});
+
+Route::namespace('Visit')->prefix('visits')->group(function() {
+    Route::get('/{link}/analytics', AnalyticController::class);
+    Route::get('/{link}', ListController::class);
+});
