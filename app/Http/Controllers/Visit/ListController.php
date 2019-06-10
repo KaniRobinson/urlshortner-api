@@ -18,6 +18,7 @@ class ListController extends Controller
     {
         $visits = $link
             ->visits()
+            ->latest()
             ->paginate();
 
         return VisitResource::collection($visits);

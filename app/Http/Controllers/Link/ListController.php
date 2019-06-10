@@ -15,7 +15,8 @@ class ListController extends Controller
      */
     public function __invoke()
     {
-        $links = Link::paginate();
+        $links = Link::latest()
+            ->paginate();
 
         return LinkResource::collection($links);
     }
